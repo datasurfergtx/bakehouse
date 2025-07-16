@@ -3,11 +3,11 @@ from pyspark.sql import functions as F, Window as W, types as T
 
 @dlt.table
 def sil_customers():
-    df = dlt.read_stream("brz_customers")
+    brz_customers = dlt.read_stream("brz_customers")
 
-    df = (
-        df.dropDuplicates(["customerID"])  # ensure customerID is unique
-          .withColumnRenamed("customerID", "id")  # rename customerID to id
+    brz_customers = (
+        brz_customers.dropDuplicates(["customerID"])  # ensure customerID is unique
+          .withColumnRenamed("customerID", "customer_id")  # rename customerID to customer_id
           .withColumn(
               "phone_number",
               F.regexp_replace(
@@ -27,7 +27,7 @@ def sil_customers():
           )
     )
 
-    return df
+    return brz_customers
 
 @dlt.table
 def sil_franchises():
