@@ -1,9 +1,6 @@
 import dlt
 from pyspark.sql import functions as F, Window as W, types as T
 
-import dlt
-import pyspark.sql.functions as F
-
 @dlt.table
 def sil_customers():
     df = dlt.read_stream("brz_customers")
