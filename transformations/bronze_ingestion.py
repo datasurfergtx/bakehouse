@@ -12,19 +12,20 @@ media_schema = "media"
 #Customers table
 @dlt.table
 @dlt.expect("valid PK customerID", "customerID is not null")
-def customers():
+@dlt.expect("valid_email", "email_address LIKE '%@%'")
+def brz_customers():
   return spark.read.table(f"{catalog}.{sales_schema}.customers")
 
 #Franchises table
 @dlt.table
 @dlt.expect("valid PK franchiseID", "franchiseID is not null")
-def franchises():
+def brz_franchises():
   return spark.read.table(f"{catalog}.{sales_schema}.franchises")
 
 #Suppliers table
 @dlt.table
 @dlt.expect("valid PK supplierID", "supplierID is not null")
-def suppliers():
+def brz_suppliers():
   return spark.read.table(f"{catalog}.{sales_schema}.suppliers")
 
 #Transactions table
@@ -32,7 +33,7 @@ def suppliers():
 @dlt.expect("valid PK transactionID", "transactionID is not null")
 @dlt.expect("valid CustomerID FK", "customerID is not null")
 @dlt.expect("valid FranchiseID FK", "franchiseID is not null")
-def transactions():
+def brz_transactions():
   return spark.read.table(f"{catalog}.{sales_schema}.transactions")
 
 #Media Schema
@@ -40,12 +41,12 @@ def transactions():
 @dlt.table
 @dlt.expect("valid PK new_id", "new_id is not null")
 @dlt.expect("valid FK franchiseID", "franchiseID is not null")
-def customer_reviews():
+def brz_customer_reviews():
   return spark.read.table(f"{catalog}.{media_schema}.customer_reviews")
 
 #Gold Reviews Chunked table
 @dlt.table
 @dlt.expect("valid PK chunk_id", "chunk_id is not null")
 @dlt.expect("valid FK franchiseID", "franchiseID is not null")
-def gold_reviews_chunked():
+def brz_gold_reviews_chunked():
   return spark.read.table(f"{catalog}.{media_schema}.gold_reviews_chunked")
