@@ -33,6 +33,7 @@ def brz_suppliers():
 @dlt.expect("valid PK transactionID", "transactionID is not null")
 @dlt.expect("valid CustomerID FK", "customerID is not null")
 @dlt.expect("valid FranchiseID FK", "franchiseID is not null")
+@dlt.expect("valid sales numbers", "quantity * unitPrice = totalPrice")
 def brz_transactions():
   return spark.read.table(f"{catalog}.{sales_schema}.transactions")
 
